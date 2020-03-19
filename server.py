@@ -41,7 +41,7 @@ def send_email(data):
         smtp.ehlo()
         smtp.starttls()
         smtp.login('agahamtest@gmail.com', 'mijntest123')
-        smtp.send_message(email)
+        smtp.send_message(sender+"\n"+email)
         print('sent')
 
 def write_to_csv(data):
