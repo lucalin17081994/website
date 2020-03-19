@@ -35,13 +35,13 @@ def send_email(data):
     email['to']='agahamsc@live.com'
     email['subject']=title
     
-    email.set_content(body)
+    email.set_content(sender+"\n"+body)
     
     with smtplib.SMTP(host='smtp.gmail.com', port=587) as smtp:
         smtp.ehlo()
         smtp.starttls()
         smtp.login('agahamtest@gmail.com', 'mijntest123')
-        smtp.send_message(sender+"\n"+email)
+        smtp.send_message(email)
         print('sent')
 
 def write_to_csv(data):
