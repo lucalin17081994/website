@@ -2,6 +2,8 @@
 
 from flask import Flask, render_template,request,redirect
 import csv
+import smtplib
+from email.message import EmailMessage
 app = Flask(__name__)
 
 
@@ -18,10 +20,29 @@ def submit_form():
         data=request.form.to_dict()
         
         write_to_csv(data)
+        send_email(data)
         return redirect('thankyou')
     else:
         return 'something went wrong'
 
+def send_email(data):
+    sender=data['email']
+    title=data['title']
+    body=data['body']
+    
+    email=EmailMessage()
+    email['from']=sender
+    email['to']='agahamsc@live.com'
+    email['subject']=title
+    
+    email.set_content(body)
+    
+    with smtplib.SMTP(host='smtp.gmail.com', port=587) as smtp:
+        smtp.ehlo()
+        smtp.starttls()
+        smtp.login('agahamtest@gmail.com', 'mijntest123')
+        smtp.send_message(email)
+        print('sent')
 
 def write_to_csv(data):
     with open('database.csv',mode='a') as database:
