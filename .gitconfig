@@ -17,3 +17,5 @@
 [user]
 	email = agahamsc@live.com
 	name = Luca
+[push]
+	default = matching
